@@ -1,7 +1,7 @@
 Page View Plugin for Mecha
 ==========================
 
-This plugin adds a `view` property to the current page once visited by your readers with dynamic value. Each page visit will increment the `view` value by one.
+This plugin adds a `view` property to the current page with dynamic value once visited by your readers. Each page visit will increment the `view` property value by one.
 
 ### Usage
 
