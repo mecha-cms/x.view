@@ -8,5 +8,5 @@ This plugin adds a `view` property to the current page with dynamic value once v
 To show the current page views, add this to the `page.php` file in your active shield:
 
 ~~~ .php
-<?php echo $page->view(0); ?>
+<?php echo $page->view; ?>
 ~~~
