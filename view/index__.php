@@ -1,9 +1,12 @@
 <?php
 
 function fn_view_set($path) {
-    $path = rtrim(PAGE . DS . To::path($path), DS) . DS . 'view.data';
-    $i = (int) File::open($path)->get(0, 0);
-    File::write($i + 1)->saveTo($path);
+    $s = rtrim(PAGE . DS . To::path($path), DS);
+    if (File::exist([$s . '.page', $s . '.archive'])) {
+        $path = $s . DS . 'view.data';
+        $i = (int) File::open($path)->get(0, 0);
+        File::write($i + 1)->saveTo($path);
+    }
 }
 
 function fn_view_get($data) {
