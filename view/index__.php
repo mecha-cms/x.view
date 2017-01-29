@@ -20,7 +20,7 @@ function fn_view_get($view) {
 
 Hook::set('page.view', 'fn_view_get');
 
-// is online …
+// is online…
 if (strpos(X . '127.0.0.1' . X . '::1' . X, X . $_SERVER['REMOTE_ADDR'] . X) === false) {
     Route::hook('%*%', 'fn_view_set');
 }
