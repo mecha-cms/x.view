@@ -3,7 +3,7 @@ title: Page View
 description: Page views counter.
 author: Taufik Nurrohman
 type: Markdown
-version: 2.0.1
+version: 2.0.2
 ...
 
 This plugin adds a `view` property to the current page with dynamic value. Each page visit will increment the `view` property value by one.
