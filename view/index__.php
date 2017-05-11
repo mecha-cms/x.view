@@ -5,8 +5,13 @@ function fn_view_set($path = "") {
     $s = rtrim(PAGE . DS . To::path($path === "" ? $site->path : $path), DS);
     if (File::exist([$s . '.page', $s . '.archive'])) {
         $path = $s . DS . 'view.data';
-        $i = (int) File::open($path)->get(0, 0);
-        File::write($i + 1)->saveTo($path);
+        if (!file_exists($path)) {
+            File::write('0')->saveTo($path);
+        }
+        if (($i = file_get_contents($path)) !== false) {
+            $i = (int) $i;
+            File::write($i + 1)->saveTo($path);
+        }
     }
 }
 
