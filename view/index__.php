@@ -3,7 +3,10 @@
 function fn_view_set($path = "") {
     global $site;
     $s = rtrim(PAGE . DS . To::path($path === "" ? $site->path : $path), DS);
-    if (File::exist([$s . '.page', $s . '.archive'])) {
+    if (File::exist([
+        $s . '.page',
+        $s . '.archive'
+    ])) {
         $path = $s . DS . 'view.data';
         if (!file_exists($path)) {
             File::write('0')->saveTo($path);
