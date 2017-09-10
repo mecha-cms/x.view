@@ -3,7 +3,7 @@ title: Page View
 description: Page views counter.
 author: Taufik Nurrohman
 type: Markdown
-version: 2.0.3
+version: 2.0.4
 dependency: {"extension":["page"]}
 ...
 

@@ -1,13 +1,16 @@
 <?php
 
-function fn_view_set($path = "") {
+function fn_view_set($path = "", $step = null) {
     global $site;
     $s = rtrim(PAGE . DS . To::path($path === "" ? $site->path : $path), DS);
-    if (File::exist([
+    $i = $step !== null ? DS . $step : X;
+    if ($file = File::exist([
+        $s . $i . '.page',
+        $s . $i . '.archive',
         $s . '.page',
         $s . '.archive'
     ])) {
-        $path = $s . DS . 'view.data';
+        $path = Path::F($file) . DS . 'view.data';
         if (!file_exists($path)) {
             File::write('0')->saveTo($path);
         }
@@ -29,7 +32,7 @@ function fn_view_get($view) {
 
 Hook::set('page.view', 'fn_view_get');
 
-// is online…
-if (strpos(X . '127.0.0.1' . X . '::1' . X, X . $_SERVER['REMOTE_ADDR'] . X) === false) {
-    Route::lot(['%*%', ""], 'fn_view_set');
+// Is online…
+if (!Is::this(['127.0.0.1', '::1'])->contain($_SERVER['REMOTE_ADDR'])) {
+    Route::lot(['%*%/%i%', '%*%', ""], 'fn_view_set');
 }
