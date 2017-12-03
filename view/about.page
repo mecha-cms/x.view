@@ -4,7 +4,10 @@ description: Page views counter.
 author: Taufik Nurrohman
 type: Markdown
 version: 2.0.4
-dependency: {"extension":["page"]}
+
+dependency:
+  extension:
+    - page
 ...
 
 This plugin adds a `view` property to the current page with dynamic value. Each page visit will increment the `view` property value by one.
