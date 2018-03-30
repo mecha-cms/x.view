@@ -12,11 +12,11 @@ function fn_view_set($path = "", $step = null) {
     ])) {
         $path = Path::F($file) . DS . 'view.data';
         if (!file_exists($path)) {
-            File::write('0')->saveTo($path);
+            File::set('0')->saveTo($path);
         }
         if (($i = file_get_contents($path)) !== false) {
             $i = (int) $i;
-            File::write($i + 1)->saveTo($path);
+            File::set($i + 1)->saveTo($path);
         }
     }
 }
@@ -34,5 +34,8 @@ Hook::set('page.view', 'fn_view_get');
 
 // Is online…
 if (!Is::this(['127.0.0.1', '::1'])->contain($_SERVER['REMOTE_ADDR'])) {
-    Route::lot(['%*%/%i%', '%*%', ""], 'fn_view_set');
+    // Is logged out…
+    if (!Extend::exist('user') || !Is::user()) {
+        Route::lot(['%*%/%i%', '%*%', ""], 'fn_view_set');
+    }
 }
