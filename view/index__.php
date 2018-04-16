@@ -30,12 +30,17 @@ function fn_view_get($view) {
     return '0 ' . $language->page_view[1];
 }
 
-Hook::set('page.view', 'fn_view_get');
+Hook::set('page.view', 'fn_view_get', 0);
 
 // Is online…
-if (!Is::this(['127.0.0.1', '::1'])->contain($_SERVER['REMOTE_ADDR'])) {
+if (!Is::this(['127.0.0.1', '::1'])->has($_SERVER['REMOTE_ADDR'])) {
     // Is logged out…
     if (!Extend::exist('user') || !Is::user()) {
         Route::lot(['%*%/%i%', '%*%', ""], 'fn_view_set');
     }
+}
+
+// Live preview?
+if (Plugin::state('view', 'live')) {
+    require __DIR__ . DS . 'lot' . DS . 'worker' . DS . 'live.php';
 }
