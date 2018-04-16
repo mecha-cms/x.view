@@ -11,33 +11,43 @@
         xhr.send();
     }
 
-    var view = doc.querySelectorAll('.view[data-view]'),
+    var view = doc.querySelectorAll('.view[data-path]'),
+        script = doc.getElementsByTagName('script'),
+        src, text,
         interval = 10, // 10 second(s)
         i, j = view.length,
         timer = win.setTimeout;
 
+    if (!j) return;
+
+    script = script[script.length - 1];
+    src = script.src;
+    src = src.slice(0, src.indexOf('/lot/')) + '/-view/';
+    text = script.getAttribute('data-view');
+    text = JSON.parse(text || '["",""]');
+
     function get($) {
-        ajax($.getAttribute('data-view'), function(r) {
-            var c = $.children[0],
-                i = +c.innerHTML,
-                j = 0;
+        ajax(src + $.getAttribute('data-path'), function(r) {
+            var i = +$.innerHTML.split(/\s+/)[0],
+                j = 0, k;
             r = +(r || 0);
             if (r > i) {
                 // console.log('animate to ' + r);
-                (function loop(k) {
+                (function loop(l) {
                     ++j;
                     timer(function() {
-                        c.innerHTML = i + j;
+                        k = i + j;
+                        $.innerHTML = k + ' ' + (k === 1 ? text[0] : (text[1] || text[0]));
                         // console.log('animated to ' + (i + j));
-                        if (--k) {
-                            loop(k);
+                        if (--l) {
+                            loop(l);
                         } else {
                             // console.log('check...');
                             timer(function() {
                                 get($);
                             }, 1000 * interval);
                         }
-                    }, 50);
+                    }, 10);
                 })(r - i);
             } else {
                 // console.log('no change, check again...');
