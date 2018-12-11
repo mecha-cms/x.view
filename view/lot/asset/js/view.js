@@ -12,18 +12,16 @@
     }
 
     var view = doc.querySelectorAll('.view[data-path]'),
-        script = doc.getElementsByTagName('script'),
-        src, text,
+        script = doc.currentScript,
+        src = script.src,
+        text = script.getAttribute('data-view'),
         interval = 10, // 10 second(s)
         i, j = view.length,
         timer = win.setTimeout;
 
     if (!j) return;
 
-    script = script[script.length - 1];
-    src = script.src;
-    src = src.slice(0, src.indexOf('/lot/')) + '/-view/';
-    text = script.getAttribute('data-view');
+    src = src.slice(0, src.indexOf('/lot/')) + '/.view/';
     text = JSON.parse(text || '["",""]');
 
     function get($) {
