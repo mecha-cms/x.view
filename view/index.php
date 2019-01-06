@@ -25,9 +25,9 @@ namespace fn\view {
         global $language;
         if ($view !== null) {
             $i = (int) $view;
-            return $view . ' ' . $language->page_view[$i === 1 ? 0 : 1];
+            return trim($view . ' ' . $language->page_view[$i === 1 ? 0 : 1]);
         }
-        return '0 ' . $language->page_view[1];
+        return trim('0 ' . $language->page_view[1]);
     }
     // Is online…
     if (!\has(['127.0.0.1', '::1'], \Get::IP())) {

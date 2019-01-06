@@ -35,7 +35,7 @@
                     ++j;
                     timer(function() {
                         k = i + j;
-                        $.innerHTML = k + ' ' + (k === 1 ? text[0] : (text[1] || text[0]));
+                        $.innerHTML = (k + ' ' + (k === 1 ? text[0] : (text[1] || text[0]))).trim();
                         // console.log('animated to ' + (i + j));
                         if (--l) {
                             loop(l);
