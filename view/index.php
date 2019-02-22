@@ -15,7 +15,7 @@ namespace fn\view {
             if (!\file_exists($path)) {
                 \File::put('0')->saveTo($path, 0600);
             }
-            if (($i = \file_get_contents($path)) !== false) {
+            if (false !== ($i = \file_get_contents($path))) {
                 $i = (int) $i;
                 \File::put($i + 1)->saveTo($path, 0600);
             }
