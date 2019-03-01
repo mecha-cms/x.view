@@ -1,9 +1,7 @@
 <?php namespace fn\page;
 
 \Asset::set(__DIR__ . DS . '..' . DS . 'asset' . DS . 'js' . DS . 'view.min.js', null, [
-    'data[]' => [
-        'view' => $language->page_view
-    ]
+    'data-view' => $language->page_view
 ]);
 
 function view($view, array $lot = []) {

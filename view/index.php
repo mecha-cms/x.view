@@ -12,12 +12,12 @@ namespace fn\view {
             $folder . '.archive'
         ])) {
             $path = \Path::F($file) . DS . 'view.data';
-            if (!\file_exists($path)) {
+            if (!\is_file($path)) {
                 \File::put('0')->saveTo($path, 0600);
             }
             if (false !== ($i = \file_get_contents($path))) {
                 $i = (int) $i;
-                \File::put($i + 1)->saveTo($path, 0600);
+                \File::put((string) ($i + 1))->saveTo($path, 0600);
             }
         }
     }
