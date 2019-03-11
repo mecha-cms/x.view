@@ -33,7 +33,7 @@ namespace fn\view {
     if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
         // Is logged out…
         if (!\Extend::exist('user') || !\Is::user()) {
-            \Route::lot(['%*%/%i%', '%*%', ""], __NAMESPACE__ . "\\set");
+            \Route::lot(['(.+)/(\d+)', '(.+)', ""], __NAMESPACE__ . "\\set");
         }
     }
     \Hook::set('page.view', __NAMESPACE__ . "\\get", 0);
