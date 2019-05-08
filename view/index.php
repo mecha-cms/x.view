@@ -1,10 +1,10 @@
 <?php
 
-namespace fn\view {
-    function set($path = "", $step = null) {
-        global $config;
-        $folder = \rtrim(PAGE . DS . \To::path($path === "" ? $config->path : $path), DS);
-        $i = $step !== null ? DS . $step : X;
+namespace _\view {
+    function set() {
+        $i = $this->url->i;
+        $folder = \rtrim(PAGE . DS . \To::path($this[0] ?? $this->config->path), DS);
+        $i = $i !== null ? DS . $i : X;
         if ($file = \File::exist([
             $folder . $i . '.page',
             $folder . $i . '.archive',
@@ -25,23 +25,24 @@ namespace fn\view {
         global $language;
         if ($view !== null) {
             $i = (int) $view;
-            return \trim($view . ' ' . $language->page_view[$i === 1 ? 0 : 1]);
+            return \trim($language->pageViewCount($view));
         }
-        return \trim('0 ' . $language->page_view[1]);
+        return \trim($language->pageViewCount(0));
     }
     // Is online…
     if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
         // Is logged out…
         if (!\Extend::exist('user') || !\Is::user()) {
-            \Route::lot(['(.+)/(\d+)', '(.+)', ""], __NAMESPACE__ . "\\set");
+            \Route::lot(['*', ""], __NAMESPACE__ . "\\set");
         }
     }
     \Hook::set('page.view', __NAMESPACE__ . "\\get", 0);
+    \Language::set('page-view-count', ['0 Views', '1 View', '%d Views']);
 }
 
 namespace {
     // Live preview?
     if (\Plugin::state('view', 'live')) {
-        require __DIR__ . DS . 'lot' . DS . 'worker' . DS . 'live.php';
+        require __DIR__ . DS . 'engine' . DS . 'r' . DS . 'live.php';
     }
 }

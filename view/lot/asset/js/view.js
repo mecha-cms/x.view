@@ -22,7 +22,7 @@
     if (!j) return;
 
     src = src.slice(0, src.indexOf('/lot/')) + '/.view/';
-    text = JSON.parse(text || '["",""]');
+    text = JSON.parse(text || '["","",""]');
 
     function get($) {
         ajax(src + $.getAttribute('data-path'), function(r) {
@@ -35,7 +35,7 @@
                     ++j;
                     timer(function() {
                         k = i + j;
-                        $.innerHTML = (k + ' ' + (k === 1 ? text[0] : (text[1] || text[0]))).trim();
+                        $.innerHTML = (text[k === 1 ? 1 : 2] || text[0]).replace(/%d/g, k).trim();
                         // console.log('animated to ' + (i + j));
                         if (--l) {
                             loop(l);
