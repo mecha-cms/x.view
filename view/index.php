@@ -2,8 +2,9 @@
 
 namespace _\view {
     function set() {
-        $i = $this->url->i;
-        $folder = \rtrim(PAGE . DS . \To::path($this[0] ?? $this->config->path), DS);
+        global $config, $url;
+        $i = $url->i;
+        $folder = \rtrim(PAGE . DS . \To::path($this[0] ?? $config->path), DS);
         $i = $i !== null ? DS . $i : X;
         if ($file = \File::exist([
             $folder . $i . '.page',
@@ -13,11 +14,11 @@ namespace _\view {
         ])) {
             $path = \Path::F($file) . DS . 'view.data';
             if (!\is_file($path)) {
-                \File::put('0')->saveTo($path, 0600);
+                \File::set('0')->saveTo($path, 0600);
             }
             if (false !== ($i = \file_get_contents($path))) {
                 $i = (int) $i;
-                \File::put((string) ($i + 1))->saveTo($path, 0600);
+                \File::set((string) ($i + 1))->saveTo($path, 0600);
             }
         }
     }
