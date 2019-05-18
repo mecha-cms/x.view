@@ -5,9 +5,9 @@ author: Taufik Nurrohman
 type: Markdown
 version: 2.1.3
 
-dependency:
-  extension:
-  - page
+lot:
+  extend:
+    page: 1
 ...
 
 This plugin adds a `view` property to the current page with dynamic value. Each page visit will increment the `view` property value by one.
