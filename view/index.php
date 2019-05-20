@@ -33,7 +33,7 @@ namespace _\view {
     // Is online…
     if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
         // Is logged out…
-        if (!\Extend::exist('user') || !\Is::user()) {
+        if (\extend('user') === null || !\Is::user()) {
             \Route::lot(['*', ""], __NAMESPACE__ . "\\set");
         }
     }
@@ -43,7 +43,7 @@ namespace _\view {
 
 namespace {
     // Live preview?
-    if (\Plugin::state('view', 'live')) {
+    if (\plugin('view')['live']) {
         require __DIR__ . DS . 'engine' . DS . 'r' . DS . 'live.php';
     }
 }
