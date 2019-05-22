@@ -5,7 +5,7 @@ namespace _\view {
         global $config, $url;
         $i = $url->i;
         $folder = \rtrim(PAGE . DS . \To::path($this[0] ?? $config->path), DS);
-        $i = $i !== null ? DS . $i : X;
+        $i = $i !== null ? DS . $i : P;
         if ($file = \File::exist([
             $folder . $i . '.page',
             $folder . $i . '.archive',
@@ -34,7 +34,7 @@ namespace _\view {
     if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
         // Is logged out…
         if (\extend('user') === null || !\Is::user()) {
-            \Route::lot(['*', ""], __NAMESPACE__ . "\\set");
+            \Route::over(['*', ""], __NAMESPACE__ . "\\set");
         }
     }
     \Hook::set('page.view', __NAMESPACE__ . "\\get", 0);
