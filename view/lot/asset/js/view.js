@@ -1,6 +1,12 @@
 (function(win, doc) {
 
     function ajax(url, fn) {
+        if (typeof fetch === "function") {
+            fetch(url).then(function(response) {
+                response.text().then(fn);
+            });
+            return;
+        }
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -11,10 +17,10 @@
         xhr.send();
     }
 
-    var view = doc.querySelectorAll('.view[data-path]'),
+    var view = doc.querySelectorAll('.view[for]'),
         script = doc.currentScript,
         src = script.src,
-        text = script.getAttribute('data-view'),
+        text = script.getAttribute('data-t'),
         interval = 10, // 10 second(s)
         i, j = view.length,
         timer = win.setTimeout;
@@ -25,8 +31,8 @@
     text = JSON.parse(text || '["","",""]');
 
     function get($) {
-        ajax(src + $.getAttribute('data-path'), function(r) {
-            var i = +$.innerHTML.split(/\s+/)[0],
+        ajax(src + $.getAttribute('for'), function(r) {
+            var i = +(/\d+/.exec($.value)[0] || 0),
                 j = 0, k;
             r = +(r || 0);
             if (r > i) {
@@ -35,7 +41,7 @@
                     ++j;
                     timer(function() {
                         k = i + j;
-                        $.innerHTML = (text[k === 1 ? 1 : 2] || text[0]).replace(/%d/g, k).trim();
+                        $.value = (text[k === 1 ? 1 : 2] || text[0]).replace(/%d/g, k).trim();
                         // console.log('animated to ' + (i + j));
                         if (--l) {
                             loop(l);
@@ -45,7 +51,7 @@
                                 get($);
                             }, 1000 * interval);
                         }
-                    }, 10);
+                    }, 50);
                 })(r - i);
             } else {
                 // console.log('no change, check again...');
