@@ -33,7 +33,7 @@ namespace _\view {
     // Is online…
     if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
         // Is logged out…
-        if (\extend('user') === null || !\Is::user()) {
+        if (\extension('user') === null || !\Is::user()) {
             \Route::over(['*', ""], __NAMESPACE__ . "\\set");
         }
     }
