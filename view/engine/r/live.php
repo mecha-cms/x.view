@@ -12,5 +12,5 @@ function view($view, array $lot = []) {
 
 \Route::set('.view/<>', 200, function() {
     $this->type('text/plain');
-    $this->content(\content(PAGE . DS . $this[0] . DS . 'view.data') ?? "");
+    $this->put(\content(PAGE . DS . $this[0] . DS . 'view.data') ?? "");
 });
