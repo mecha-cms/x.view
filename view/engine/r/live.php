@@ -10,7 +10,7 @@ function view($view, array $lot = []) {
 
 \Hook::set('page.view', __NAMESPACE__ . "\\view", 1);
 
-\Route::set('.view/<>', 200, function() {
+\Route::set('.view/*', 200, function() {
     $this->type('text/plain');
     $this->put(\content(PAGE . DS . $this[0] . DS . 'view.data') ?? "");
 });
