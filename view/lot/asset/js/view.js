@@ -2,25 +2,30 @@
 
     function ajax(url, fn) {
         if (typeof fetch === "function") {
-            fetch(url).then(function(response) {
+            fetch(url, {
+                headers: new Headers({
+                    'X-Requested-With': 'XHR'
+                })
+            }).then(function(response) {
                 response.text().then(fn);
             });
             return;
         }
-        var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest;
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 fn(xhr.responseText);
             }
         };
         xhr.open('GET', url, true);
+        xhr.setRequestHeader('X-Requested-With', 'XHR');
         xhr.send();
     }
 
     var view = doc.querySelectorAll('.view[for]'),
         script = doc.currentScript,
         src = script.src,
-        text = script.getAttribute('data-t'),
+        text = script.getAttribute('data-language'),
         interval = 10, // 10 second(s)
         i, j = view.length,
         timer = win.setTimeout;
@@ -41,7 +46,7 @@
                     ++j;
                     timer(function() {
                         k = i + j;
-                        $.value = (text[k === 1 ? 1 : 2] || text[0]).replace(/%d/g, k).trim();
+                        $.value = (text[k] || text[2]).replace(/%d/g, k).trim();
                         // console.log('animated to ' + (i + j));
                         if (--l) {
                             loop(l);
@@ -51,7 +56,7 @@
                                 get($);
                             }, 1000 * interval);
                         }
-                    }, 50);
+                    }, 100);
                 })(r - i);
             } else {
                 // console.log('no change, check again...');
