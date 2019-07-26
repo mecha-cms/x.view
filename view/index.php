@@ -23,8 +23,7 @@ function route() {
 }
 
 function set($i) {
-    global $language;
-    return \trim($language->pageViewCount($i ?? 0));
+    return \trim($GLOBALS['language']->pageViewCount($i ?? 0));
 }
 
 // Is online…
