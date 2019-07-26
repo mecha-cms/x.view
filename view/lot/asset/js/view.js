@@ -22,10 +22,14 @@
         xhr.send();
     }
 
+    function cookie(name) {
+        return ((decodeURIComponent('; ' + doc.cookie.replace(/\+/g, ' ')).split('; ' + name + '='))[1] || "").split(';')[0];
+    }
+
     var view = doc.querySelectorAll('.view[for]'),
         script = doc.currentScript,
         src = script.src,
-        text = script.getAttribute('data-language'),
+        text = cookie('_b934eebc').split('|'), // `dechex(crc32('.\lot\x\view'))`
         interval = 10, // 10 second(s)
         i, j = view.length,
         timer = win.setTimeout;
@@ -33,7 +37,6 @@
     if (!j) return;
 
     src = src.slice(0, src.indexOf('/lot/')) + '/.view/';
-    text = JSON.parse(text || '["","",""]');
 
     function get($) {
         ajax(src + $.getAttribute('for'), function(r) {

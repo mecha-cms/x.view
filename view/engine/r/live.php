@@ -1,8 +1,6 @@
 <?php namespace _\lot\x\view\live;
 
-\Asset::set(__DIR__ . DS . '..' . DS . '..' . DS . 'lot' . DS . 'asset' . DS . 'js' . DS . 'view.min.js', 10, [
-    'data-language' => \Language::get('page-view-count')
-]);
+\Asset::set(__DIR__ . DS . '..' . DS . '..' . DS . 'lot' . DS . 'asset' . DS . 'js' . DS . 'view.min.js');
 
 function route() {
     if ($this->header('X-Requested-With') !== 'XHR') {
@@ -19,3 +17,6 @@ function set($i) {
 
 \Hook::set('page.view', __NAMESPACE__ . "\\set", 1);
 \Route::set('.view/*', 200, __NAMESPACE__ . "\\route");
+
+// `dechex(crc32('.\lot\x\view'))`
+\setcookie('_b934eebc', \implode('|', (array) \Language::get('page-view-count')));
