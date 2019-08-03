@@ -13,11 +13,14 @@ function route() {
     ])) {
         $path = \Path::F($file) . DS . 'view.data';
         if (!\is_file($path)) {
-            \File::set('0')->saveTo($path, 0600);
-        }
-        if (false !== ($i = \file_get_contents($path))) {
-            $i = (int) $i;
-            \File::set((string) ($i + 1))->saveTo($path, 0600);
+            $file = new \File($path);
+            $file->set('0');
+            $file->save(0600);
+        } else {
+            $file = new \File($path);
+            $i = (int) $file->get(0);
+            $file->set((string) ($i + 1));
+            $file->save(0600);
         }
     }
 }
