@@ -3,24 +3,22 @@
 function route() {
     global $config, $url;
     $i = $url->i;
-    $folder = \rtrim(PAGE . DS . \strtr($this[0] ?? \Config::get('/'), '/', DS), DS);
-    $i = $i !== null ? DS . $i : P;
+    $folder = \rtrim(\PAGE . \DS . \strtr($this[0] ?? \Config::get('/'), '/', \DS), \DS);
+    $i = $i !== null ? \DS . $i : \P;
     if ($file = \File::exist([
         $folder . $i . '.page',
         $folder . $i . '.archive',
         $folder . '.page',
         $folder . '.archive'
     ])) {
-        $path = \Path::F($file) . DS . 'view.data';
+        $path = \Path::F($file) . \DS . 'view.data';
         if (!\is_file($path)) {
             $file = new \File($path);
-            $file->set('0');
-            $file->save(0600);
+            $file->set('0')->save(0600);
         } else {
             $file = new \File($path);
             $i = (int) $file->get(0);
-            $file->set((string) ($i + 1));
-            $file->save(0600);
+            $file->set((string) ($i + 1))->save(0600);
         }
     }
 }
@@ -42,5 +40,5 @@ if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
 
 // Live preview?
 if (!empty(\state('view')['live'])) {
-    require __DIR__ . DS . 'engine' . DS . 'r' . DS . 'live.php';
+    require __DIR__ . \DS . 'engine' . \DS . 'r' . \DS . 'live.php';
 }
