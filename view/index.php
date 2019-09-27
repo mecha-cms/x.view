@@ -1,9 +1,9 @@
 <?php namespace _\lot\x\view;
 
 function route() {
-    global $config, $url;
+    global $state, $url;
     $i = $url->i;
-    $folder = \rtrim(\PAGE . \DS . \strtr($this[0] ?? \Config::get('/'), '/', \DS), \DS);
+    $folder = \rtrim(\PAGE . \DS . \strtr($this[0] ?? \trim(\State::get('path'), '/'), '/', \DS), \DS);
     $i = $i !== null ? \DS . $i : \P;
     if ($file = \File::exist([
         $folder . $i . '.page',
@@ -30,7 +30,7 @@ function set($i) {
 // Is online…
 if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
     // Is logged out…
-    if (\state('user') === null || !\Is::user()) {
+    if (\State::get('x.user') === null || !\Is::user()) {
         \Route::over(['*', ""], __NAMESPACE__ . "\\route");
     }
 }
@@ -39,6 +39,6 @@ if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
 \Language::set('page-view-count', ['0 Views', '1 View', '%d Views']);
 
 // Live preview?
-if (!empty(\state('view')['live'])) {
+if (\State::get('x.view.live')) {
     require __DIR__ . \DS . 'engine' . \DS . 'r' . \DS . 'live.php';
 }
