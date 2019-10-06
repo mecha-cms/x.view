@@ -16,5 +16,5 @@ This extension adds a `view` property to the current page with dynamic value. Ea
 To show the current page views, add this to the `page.php` file in your active skin:
 
 ~~~ .php
-<?php echo $page->view; ?>
+<?= $page->view; ?>
 ~~~
