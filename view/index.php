@@ -24,7 +24,7 @@ function route() {
 }
 
 function set($i) {
-    return \trim($GLOBALS['language']->pageViewCount($i ?? 0));
+    return \trim(\i($i === null ? '0 Views' : ($i === 1 ? '1 View' : '%d Views'), $i));
 }
 
 // Is online…
@@ -36,7 +36,6 @@ if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
 }
 
 \Hook::set('page.view', __NAMESPACE__ . "\\set", 0);
-\Language::set('page-view-count', ['0 Views', '1 View', '%d Views']);
 
 // Live preview?
 if (\State::get('x.view.live')) {
