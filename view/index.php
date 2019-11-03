@@ -4,7 +4,7 @@ function route() {
     global $state, $url;
     $i = $url['i'];
     $folder = \rtrim(\PAGE . \DS . \strtr($this[0] ?? \trim(\State::get('path'), '/'), '/', \DS), \DS);
-    $i = $i !== null ? \DS . $i : \P;
+    $i = null !== $i ? \DS . $i : \P;
     if ($file = \File::exist([
         $folder . $i . '.page',
         $folder . $i . '.archive',
@@ -24,13 +24,13 @@ function route() {
 }
 
 function set($i) {
-    return \trim(\i($i === null ? '0 Views' : ($i === 1 ? '1 View' : '%d Views'), $i));
+    return \trim(\i(null === $i ? '0 Views' : (1 === $i ? '1 View' : '%d Views'), $i));
 }
 
 // Is online…
 if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
     // Is logged out…
-    if (\State::get('x.user') === null || !\Is::user()) {
+    if (null === \State::get('x.user') || !\Is::user()) {
         \Route::over(['*', ""], __NAMESPACE__ . "\\route");
     }
 }

@@ -3,7 +3,7 @@
 \Asset::set(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'lot' . \DS . 'asset' . \DS . 'js' . \DS . 'view.min.js');
 
 function route() {
-    if ($this->header('X-Requested-With') !== 'XHR') {
+    if ('XHR' !== $this->header('X-Requested-With')) {
         \Guard::abort('Method not allowed.');
     }
     $this->type('text/plain');
