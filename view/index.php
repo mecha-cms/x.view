@@ -28,7 +28,7 @@ function set($i) {
 }
 
 // Is online…
-if (!\has(['127.0.0.1', '::1'], \Get::IP())) {
+if (!\has(['127.0.0.1', '::1'], \Client::IP())) {
     // Is logged out…
     if (null === \State::get('x.user') || !\Is::user()) {
         \Route::over(['*', ""], __NAMESPACE__ . "\\route");
