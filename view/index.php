@@ -3,7 +3,7 @@
 function route() {
     global $state, $url;
     $i = $url['i'];
-    $folder = \rtrim(\PAGE . \DS . \strtr($this[0] ?? \trim(\State::get('path'), '/'), '/', \DS), \DS);
+    $folder = \rtrim(\LOT . \DS . 'page' . \DS . \strtr($this[0] ?? \trim(\State::get('path'), '/'), '/', \DS), \DS);
     $i = null !== $i ? \DS . $i : \P;
     if ($file = \File::exist([
         $folder . $i . '.page',

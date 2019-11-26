@@ -2,17 +2,17 @@
 
 \Asset::set(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'lot' . \DS . 'asset' . \DS . 'js' . \DS . 'view.min.js');
 
-function route() {
+function route($any) {
     if ('XHR' !== $this->lot('X-Requested-With')) {
         \Guard::abort('Method not allowed.');
     }
     $this->type('text/plain');
-    echo \content(\PAGE . \DS . $this[0] . \DS . 'view.data') ?? "";
+    echo \content(\LOT . \DS . 'page' . \DS . $any . \DS . 'view.data') ?? "";
     exit;
 }
 
 function set($i) {
-    return '<output class="view" for="' . \Path::R(\Path::F((string) $this->path), \PAGE, '/') . '">' . $i . '</output>';
+    return '<output class="view" for="' . \Path::R(\Path::F((string) $this->path), \LOT . \DS . 'page', '/') . '">' . $i . '</output>';
 }
 
 \Hook::set('page.view', __NAMESPACE__ . "\\set", 1);
