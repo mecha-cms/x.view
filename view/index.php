@@ -16,7 +16,7 @@ function route($any = null) {
             if (!\is_dir($d = \dirname($path))) {
                 \mkdir($d, 0775, true);
             }
-            \file_put_contents($path, '0');
+            \file_put_contents($path, '1');
             \chmod($path, 0600);
         } else {
             if (false !== ($i = \file_get_contents($path))) {
