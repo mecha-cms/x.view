@@ -13,12 +13,17 @@ function route($any = null) {
     ])) {
         $path = \Path::F($file) . \DS . 'view.data';
         if (!\is_file($path)) {
-            $file = new \File($path);
-            $file->set('0')->save(0600);
+            if (!\is_dir($d = \dirname($path))) {
+                \mkdir($d, 0775, true);
+            }
+            \file_put_contents($path, '0');
+            \chmod($path, 0600);
         } else {
-            $file = new \File($path);
-            $i = (int) $file->get(0);
-            $file->set((string) ($i + 1))->save(0600);
+            if (false !== ($i = \file_get_contents($path))) {
+                $i = (int) $i;
+                \file_put_contents($path, (string) ($i + 1));
+                \chmod($path, 0600);
+            }
         }
     }
 }
