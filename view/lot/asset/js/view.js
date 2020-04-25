@@ -12,9 +12,10 @@
             return;
         }
         var xhr = new XMLHttpRequest;
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                fn(xhr.responseText);
+        xhr.responseType = 'text';
+        xhr.onload = function() {
+            if (200 === xhr.status) {
+                fn(xhr.response);
             }
         };
         xhr.open('GET', url, true);
@@ -32,7 +33,9 @@
         text = cookie('_b934eebc').split('|'), // `dechex(crc32('.\lot\x\view'))`
         interval = 10, // 10 second(s)
         i, j = view.length,
-        timer = win.setTimeout;
+        stopper = win.clearTimeout,
+        timer = win.setTimeout,
+        timerCurrent;
 
     if (!j) return;
 
@@ -47,7 +50,7 @@
                 // console.log('animate to ' + r);
                 (function loop(l) {
                     ++j;
-                    timer(function() {
+                    timerCurrent = timer(function() {
                         k = i + j;
                         $.value = (text[k] || text[2]).replace(/%d/g, k).trim();
                         // console.log('animated to ' + (i + j));
@@ -55,7 +58,7 @@
                             loop(l);
                         } else {
                             // console.log('check...');
-                            timer(function() {
+                            timerCurrent = timer(function() {
                                 get($);
                             }, 1000 * interval);
                         }
@@ -63,9 +66,13 @@
                 })(r - i);
             } else {
                 // console.log('no change, check again...');
-                timer(function() {
+                timerCurrent = timer(function() {
                     get($);
                 }, 1000 * interval);
+            }
+            // Clear interval if external script decided to remove this script
+            if (!script.parentNode) {
+                timerCurrent && stopper(timerCurrent);
             }
         });
     }
@@ -75,4 +82,4 @@
         get(view[i]);
     }
 
-})(window, document);
+})(this, this.document);
