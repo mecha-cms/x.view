@@ -43,7 +43,7 @@
 
     function get($) {
         ajax(src + $.getAttribute('for'), function(r) {
-            var i = +(/\d+/.exec($.value)[0] || 0),
+            var i = +((/\d+/.exec($.value) || [])[0] || 0),
                 j = 0, k;
             r = +(r || 0);
             if (r > i) {
