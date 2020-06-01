@@ -4,8 +4,9 @@ $z = \defined("\\DEBUG") && \DEBUG ? '.' : '.min.';
 \Asset::set(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'lot' . \DS . 'asset' . \DS . 'js' . \DS . 'view' . $z . 'js');
 
 function route($any) {
-    if ('XHR' !== $this->lot('X-Requested-With')) {
-        \Guard::abort('Method not allowed.');
+    if ('XHR' !== $this->lot('x-requested-with')) {
+        $this->status(404);
+        exit;
     }
     $this->type('text/plain');
     echo \content(\LOT . \DS . 'page' . \DS . $any . \DS . 'view.data') ?? "";

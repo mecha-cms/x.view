@@ -1,26 +1,13 @@
 (function(win, doc) {
 
     function ajax(url, fn) {
-        if (typeof fetch === "function") {
-            fetch(url, {
-                headers: new Headers({
-                    'X-Requested-With': 'XHR'
-                })
-            }).then(function(response) {
-                response.text().then(fn);
-            });
-            return;
-        }
-        var xhr = new XMLHttpRequest;
-        xhr.responseType = 'text';
-        xhr.onload = function() {
-            if (200 === xhr.status) {
-                fn(xhr.response);
-            }
-        };
-        xhr.open('GET', url, true);
-        xhr.setRequestHeader('X-Requested-With', 'XHR');
-        xhr.send();
+        fetch(url, {
+            headers: new Headers({
+                'X-Requested-With': 'XHR'
+            })
+        }).then(function(response) {
+            response.text().then(fn);
+        });
     }
 
     function cookie(name) {
