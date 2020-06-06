@@ -4,9 +4,9 @@ Page View Extension for Mecha
 Release Notes
 -------------
 
-### 2.4.x
+### 2.4.0
 
- - Prepare for Mecha 2.3.0.
+ - Ignore page views counter on certain cases, such as when the page is visited via JavaScript AJAX or via HTML5 prefetch elements.
 
 ### 2.3.1
 
