@@ -26,13 +26,18 @@ function route($any = null) {
             if (!\is_dir($d = \dirname($path))) {
                 \mkdir($d, 0775, true);
             }
-            \file_put_contents($path, '1');
+            \file_put_contents($path, '1'); // Start with `1`
             @\chmod($path, 0600);
         } else {
-            if (false !== ($i = \file_get_contents($path))) {
-                $i = (int) $i;
-                \file_put_contents($path, (string) ($i + 1));
-                @\chmod($path, 0600);
+            if (\is_readable($path) && \is_writable($path) && false !== ($v = \file_get_contents($path))) {
+                if (($v = (int) $v) > 0) {
+                    \file_put_contents($path, (string) ($v + 1));
+                    @\chmod($path, 0600);
+                } else {
+                    // If `$v` ever becomes `0` then something must have gone wrong.
+                    // It is better not to do anything. Better to lose one page view than
+                    // lose it all by accidentally writting the stats data back to `1`.
+                }
             }
         }
     }

@@ -4,6 +4,10 @@ Page View Extension for Mecha
 Release Notes
 -------------
 
+### 2.4.1
+
+ - Added more secure write condition. Trying to cancel the stats update when something have gone wrong such as dropped internet connection or file writing error caused by memory usage limit.
+
 ### 2.4.0
 
  - Ignore page views counter on certain cases, such as when the page is visited via JavaScript AJAX or via HTML5 prefetch elements.
