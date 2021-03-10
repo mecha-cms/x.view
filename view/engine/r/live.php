@@ -1,7 +1,7 @@
-<?php namespace _\lot\x\view\live;
+<?php namespace x\view\live;
 
 $z = \defined("\\DEBUG") && \DEBUG ? '.' : '.min.';
-\Asset::set(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'lot' . \DS . 'asset' . \DS . 'js' . \DS . 'view' . $z . 'js');
+\Asset::set(__DIR__ . \DS . '..' . \DS . '..' . \DS . 'lot' . \DS . 'asset' . \DS . 'js' . \DS . 'index' . $z . 'js');
 
 function route($any) {
     if ('XHR' !== $this->lot('x-requested-with')) {

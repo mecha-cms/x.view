@@ -1,4 +1,4 @@
-<?php namespace _\lot\x\view;
+<?php namespace x\view;
 
 function route($any = null) {
     // Do not count page view(s) if page is requested with something else other than normal web browser(s)
@@ -27,12 +27,12 @@ function route($any = null) {
                 \mkdir($d, 0775, true);
             }
             \file_put_contents($path, '1'); // Start with `1`
-            @\chmod($path, 0600);
+            \chmod($path, 0600);
         } else {
             if (\is_readable($path) && \is_writable($path) && false !== ($v = \file_get_contents($path))) {
                 if (($v = (int) $v) > 0) {
                     \file_put_contents($path, (string) ($v + 1));
-                    @\chmod($path, 0600);
+                    \chmod($path, 0600);
                 } else {
                     // If `$v` ever becomes `0` then something must have gone wrong.
                     // It is better not to do anything. Better to lose one page view than

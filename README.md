@@ -4,6 +4,10 @@ Page View Extension for Mecha
 Release Notes
 -------------
 
+### main
+
+ - [x] [@mecha-cms/mecha#96](https://github.com/mecha-cms/mecha/issues/96)
+
 ### 2.4.1
 
  - Added more secure write condition. Trying to cancel the stats update when something have gone wrong such as dropped internet connection or file writing error caused by memory usage limit.
