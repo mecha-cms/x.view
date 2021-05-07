@@ -21,4 +21,4 @@ function set($i) {
 \Route::set('.view/*', 200, __NAMESPACE__ . "\\route");
 
 // `dechex(crc32('.\lot\x\view'))`
-\setcookie('_b934eebc', \i('0 Views') . '|' . \i('1 View') . '|' . \i('%d Views'));
+\setcookie('_b934eebc', \i('0 Views') . '|' . \i('1 View') . '|' . \i('%d Views'), 0, '/', "", true, false);
