@@ -4,6 +4,10 @@ Page View Extension for Mecha
 Release Notes
 -------------
 
+### 2.4.3
+
+ - Remove cookie warning in Firefox web console.
+
 ### 2.4.2
 
  - [@mecha-cms/mecha#96](https://github.com/mecha-cms/mecha/issues/96)
