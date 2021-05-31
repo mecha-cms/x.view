@@ -1,5 +1,5 @@
-Page View Extension for Mecha
-=============================
+Page View Extension for [Mecha](https://github.com/mecha-cms/mecha)
+===================================================================
 
 Release Notes
 -------------
