@@ -31,9 +31,9 @@ function route($path) {
                     \file_put_contents($view, (string) ($v + 1)); // Increment value by `1`
                     \chmod($view, 0600);
                 } else {
-                    // If `$v` ever becomes `0` then something must have gone wrong.
-                    // It is better not to do anything. Better to lose one page view than
-                    // lose it all by accidentally writing the page view data back to `1`.
+                    // If `$v` ever becomes `0` then something must have gone wrong. It is better not to do anything.
+                    // Better to lose one page view than lose it all by accidentally writing the page view data back
+                    // to `1`.
                 }
             }
         }
