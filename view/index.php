@@ -1,6 +1,9 @@
 <?php namespace x\view;
 
-function route($path) {
+function route($r, $path) {
+    if (isset($r['content']) || isset($r['kick'])) {
+        return $r;
+    }
     $request = \status()[1] ?? [];
     // Do not count page view(s) if page is requested with something else other than normal web browser(s)
     if (
@@ -10,9 +13,9 @@ function route($path) {
         isset($request['x-purpose']) && 'prefetch' === $request['x-purpose'] ||
         isset($request['x-purpose']) && 'preview' === $request['x-purpose']
     ) {
-        return;
+        return $r;
     }
-    extract($GLOBALS, \EXTR_SKIP);
+    \extract($GLOBALS, \EXTR_SKIP);
     $folder = \rtrim(\LOT . \D . 'page' . \D . \strtr(\trim($path ?? $state->route, '/'), '/', \D), \D);
     if ($file = \exist([
         $folder . '.archive',
@@ -38,6 +41,7 @@ function route($path) {
             }
         }
     }
+    return $r;
 }
 
 function set($i) {
