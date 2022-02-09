@@ -28,7 +28,7 @@ function set($count) {
 \Hook::set('page.view', __NAMESPACE__ . "\\set", 1);
 
 \Hook::set('route', function($r, $path) {
-    if (\preg_match('/^\/\.view\/(.*?)$/', $path, $m)) {
+    if (\preg_match('/^\/\.view\/(.*?)$/', $path ?? "", $m)) {
         return \call_user_func(__NAMESPACE__ . "\\route", $r, '/' . $m[1]);
     }
     return $r;
