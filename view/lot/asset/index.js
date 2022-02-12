@@ -3,7 +3,7 @@
     function ajax(url, fn) {
         fetch(url, {
             headers: new Headers({
-                'X-Requested-With': 'XHR'
+                'x-requested-with': 'XHR'
             })
         }).then(function(response) {
             response.text().then(fn);
@@ -17,7 +17,7 @@
     var view = doc.querySelectorAll('.view[for]'),
         script = doc.currentScript,
         src = script.src,
-        text = cookie('_b934eebc').split('|'), // `dechex(crc32('.\lot\x\view'))`
+        text = cookie('*b934eebc').split('|'), // `dechex(crc32('.\lot\x\view'))`
         interval = 10, // 10 second(s)
         i, j = view.length,
         stopper = win.clearTimeout,

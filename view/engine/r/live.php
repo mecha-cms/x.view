@@ -3,20 +3,18 @@
 $z = \defined("\\TEST") && \TEST ? '.' : '.min.';
 \Asset::set(__DIR__ . \D . '..' . \D . '..' . \D . 'lot' . \D . 'asset' . \D . 'index' . $z . 'js');
 
-function route($r, $path) {
-    if (isset($r['content']) || isset($r['kick'])) {
-        return $r;
+function route($content, $path) {
+    if (null !== $content) {
+        return $content;
     }
-    $request = \status()[1] ?? [];
-    $r['content'] = "";
-    $r['status'] = 404;
-    $r['type'] = 'text/plain';
-    if ('XHR' !== ($request['x-request-with'] ?? "")) {
-        return $r;
+    $r = \status()[1] ?? [];
+    \type('text/plain');
+    if ('XHR' !== ($r['x-requested-with'] ?? "")) {
+        \status(404);
+        return "";
     }
-    $r['content'] = \content(\LOT . \D . 'page' . \D . $path . \D . 'view.data') ?? "";
-    $r['status'] = 200;
-    return $r;
+    \status(200);
+    return \content(\LOT . \D . 'page' . \D . $path . \D . 'view.data') ?? "";
 }
 
 function set($count) {
@@ -27,12 +25,19 @@ function set($count) {
 
 \Hook::set('page.view', __NAMESPACE__ . "\\set", 1);
 
-\Hook::set('route', function($r, $path) {
+\Hook::set('route', function($content, $path) {
     if (\preg_match('/^\/\.view\/(.*?)$/', $path ?? "", $m)) {
-        return \call_user_func(__NAMESPACE__ . "\\route", $r, '/' . $m[1]);
+        return \call_user_func(__NAMESPACE__ . "\\route", $content, '/' . $m[1]);
     }
-    return $r;
+    return $content;
 }, 0);
 
 // `dechex(crc32('.\lot\x\view'))`
-\setcookie('_b934eebc', \i('0 Views') . '|' . \i('1 View') . '|' . \i('%d Views'), 0, '/', "", true, false);
+\setcookie('*b934eebc', \i('0 Views') . '|' . \i('1 View') . '|' . \i('%d Views'), [
+    'domain' => "",
+    'expires' => 0,
+    'httponly' => true,
+    'path' => '/',
+    'samesite' => 'Strict',
+    'secure' => false
+]);
