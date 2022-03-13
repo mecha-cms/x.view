@@ -1,8 +1,8 @@
 <?php namespace x\view;
 
-function route($r, $path) {
-    if (isset($r['content']) || isset($r['kick'])) {
-        return $r;
+function route($content, $path) {
+    if (null !== $content) {
+        return $content;
     }
     $request = \status()[1] ?? [];
     // Do not count page view(s) if page is requested with something else other than normal web browser(s)
@@ -41,7 +41,7 @@ function route($r, $path) {
             }
         }
     }
-    return $r;
+    return $content;
 }
 
 function set($i) {
@@ -49,8 +49,7 @@ function set($i) {
 }
 
 // Is online…
-$ip = \getenv('HTTP_CLIENT_IP') ?: \getenv('HTTP_X_FORWARDED_FOR') ?: \getenv('HTTP_X_FORWARDED') ?: \getenv('HTTP_FORWARDED_FOR') ?: \getenv('HTTP_FORWARDED') ?: \getenv('REMOTE_ADDR');
-if (!\has(['127.0.0.1', '::1'], $ip)) {
+if (!\has(['127.0.0.1', '::1'], \ip())) {
     // Is logged out…
     if (!isset($state->x->user) || !\Is::user()) {
         \Hook::set('route.page', __NAMESPACE__ . "\\route", 0);
