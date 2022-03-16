@@ -7,13 +7,13 @@ function route($content, $path) {
     $request = \status()[1] ?? [];
     // Do not count page view(s) if page is requested with something else other than normal web browser(s)
     if (
-        // <https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ#As_a_server_admin.2C_can_I_distinguish_prefetch_requests_from_normal_requests.3F>
+        // <https://developer.mozilla.org/en-US/docs/Web/HTTP/Link_prefetching_FAQ#as_a_server_admin_can_i_distinguish_prefetch_requests_from_normal_requests>
         isset($request['purpose']) && 'prefetch' === $request['purpose'] ||
         isset($request['x-moz']) && 'prefetch' === $request['x-moz'] ||
         isset($request['x-purpose']) && 'prefetch' === $request['x-purpose'] ||
         isset($request['x-purpose']) && 'preview' === $request['x-purpose']
     ) {
-        return $r;
+        return $content;
     }
     \extract($GLOBALS, \EXTR_SKIP);
     $folder = \rtrim(\LOT . \D . 'page' . \D . \strtr(\trim($path ?? $state->route, '/'), '/', \D), \D);
