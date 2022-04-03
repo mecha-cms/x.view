@@ -1,7 +1,7 @@
 <?php namespace x\view\live;
 
 $z = \defined("\\TEST") && \TEST ? '.' : '.min.';
-\Asset::set(__DIR__ . \D . '..' . \D . '..' . \D . 'lot' . \D . 'asset' . \D . 'index' . $z . 'js');
+\Asset::set(__DIR__ . \D . '..' . \D . '..' . \D . 'index' . $z . 'js');
 
 function route($content, $path) {
     if (null !== $content) {
