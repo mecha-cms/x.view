@@ -19,21 +19,21 @@ function route($content, $path) {
 
 function set($count) {
     $path = $this->path;
-    $path = \strtr(\strtr(\dirname($path) . \D . \pathinfo($path, \PATHINFO_FILENAME), [\LOT . \D . 'page' . \D => ""]), \D, '/');
-    return '<output class="view" for="' . $path . '">' . $count . '</output>';
+    $path = \strtr(\strtr(\dirname($path) . \D . \pathinfo($path, \PATHINFO_FILENAME), [\LOT . \D . 'page' . \D => \D]), \D, '/');
+    return '<output data-view-route="' . $path . '">' . $count . '</output>';
 }
 
 \Hook::set('page.view', __NAMESPACE__ . "\\set", 1);
 
 \Hook::set('route', function($content, $path) {
-    if (\preg_match('/^\/\.view\/(.*?)$/', $path ?? "", $m)) {
+    if (\preg_match('/^\/view\/(.*?)(?:\/[1-9]\d*)?$/', $path ?? "", $m)) {
         return \call_user_func(__NAMESPACE__ . "\\route", $content, '/' . $m[1]);
     }
     return $content;
 }, 0);
 
 // `dechex(crc32('.\lot\x\view'))`
-\setcookie('*b934eebc', \i('0 Views') . '|' . \i('1 View') . '|' . \i('%d Views'), [
+\setcookie('*b934eebc', \i('0 Views') . ',' . \i('1 View') . ',' . \i('%d Views'), [
     'domain' => "",
     'expires' => 0,
     'httponly' => true,

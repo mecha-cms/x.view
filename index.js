@@ -14,10 +14,10 @@
         return ((decodeURIComponent('; ' + doc.cookie.replace(/\+/g, ' ')).split('; ' + name + '='))[1] || "").split(';')[0];
     }
 
-    var view = doc.querySelectorAll('.view[for]'),
+    var view = doc.querySelectorAll('[data-view-route]'),
         script = doc.currentScript,
         src = script.src,
-        text = cookie('*b934eebc').split('|'), // `dechex(crc32('.\lot\x\view'))`
+        text = cookie('*b934eebc').split(','), // `dechex(crc32('.\lot\x\view'))`
         interval = 10, // 10 second(s)
         i, j = view.length,
         stopper = win.clearTimeout,
@@ -26,10 +26,10 @@
 
     if (!j) return;
 
-    src = src.slice(0, src.indexOf('/lot/')) + '/.view/';
+    src = src.slice(0, src.indexOf('/lot/')) + '/view';
 
     function get($) {
-        ajax(src + $.getAttribute('for'), function(r) {
+        ajax(src + $.getAttribute('data-view-route'), function(r) {
             var i = +((/\d+/.exec($.value) || [])[0] || 0),
                 j = 0, k;
             r = +(r || 0);
