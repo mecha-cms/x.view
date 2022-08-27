@@ -26,22 +26,21 @@ function route($content, $path) {
             if (!\is_dir($d = \dirname($view))) {
                 \mkdir($d, 0775, true);
             }
-            $h = \fopen($view, 'w');
-            \fwrite($h, '1'); // Starts at `1`
-            \fclose($h); // Done!
+            \file_put_contents($view, '1'); // Starts at `1`
             \chmod($view, 0600);
         } else {
-            $h = \fopen($view, 'r+');
-            // Lock the file before writing so that other user(s) cannot do the same to this file
-            if (\flock($h, \LOCK_EX)) {
-                $v = (int) \fread($h, \filesize($view)); // Get current view count
-                \ftruncate($h, 0); // Truncate the file to `0` to remove view count
-                \rewind($h); // Set write pointer to the start of file
-                \fwrite($h, $v + 1); // Write the new view count
-                \flock($h, \LOCK_UN); // Unlock after finish writing
+            if (\is_readable($view) && \is_writable($view) && false !== ($v = \file_get_contents($view))) {
+                if (($v = (int) $v) > 0) {
+                    if (false !== \file_put_contents($view . '~', (string) ($v + 1))) { // Increment value by `1`
+                        \rename($view . '~', $view);
+                        \chmod($view, 0600);
+                    }
+                } else {
+                    // If `$v` ever becomes `0` then something must have gone wrong. It is better not to do anything.
+                    // Better to lose one page view than to lose it all by accidentally writing the page view data
+                    // back to `1`.
+                }
             }
-            \fclose($h); // Done!
-            \chmod($view, 0600);
         }
     }
     return $content;
