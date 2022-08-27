@@ -59,8 +59,3 @@ if (!\has(['127.0.0.1', '::1'], \ip())) {
 }
 
 \Hook::set('page.view', __NAMESPACE__ . "\\set", 0);
-
-// Live preview?
-if (!empty($state->x->view->live)) {
-    require __DIR__ . \D . 'engine' . \D . 'r' . \D . 'live.php';
-}
