@@ -51,7 +51,7 @@ function set($i) {
 }
 
 // Is online…
-if (!\has(['127.0.0.1', '::1'], \ip())) {
+if (!\in_array(\ip(), ['127.0.0.1', '::1'])) {
     // Is logged out…
     if (!isset($state->x->user) || !\Is::user()) {
         \Hook::set('route.page', __NAMESPACE__ . "\\route", 0);
