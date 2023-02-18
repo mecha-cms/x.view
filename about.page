@@ -11,11 +11,12 @@ use:
   '.\lot\x\page': 1
 ...
 
-This extension adds a `view` property to the current page with dynamic value. Each page visit will increment the `view` property value by one.
+This extension adds a `view` property to the current page with dynamic value. Each page visit will increment the `view`
+property value by one.
 
 ### Usage
 
-To show the current page views, add this to the `page.php` file in your active skin:
+To show the current page views, add this to the `page.php` file in your active layout:
 
 ~~~ .php
 <?= $page->view; ?>
