@@ -6,9 +6,6 @@ color: '#c43a27'
 author: Taufik Nurrohman
 type: Markdown
 version: 3.0.0
-
-use:
-  '.\lot\x\page': 1
 ...
 
 This extension adds a `view` property to the current page with dynamic value. Each page visit will increment the `view`
