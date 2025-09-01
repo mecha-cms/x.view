@@ -1,11 +1,5 @@
 <?php namespace x\view;
 
-function page__view($view) {
-    return \trim(\i(null === $view ? '0 Views' : (1 === $view ? '1 View' : '%d Views'), $view));
-}
-
-\Hook::set('page.view', __NAMESPACE__ . "\\page__view", 0);
-
 // Is online…
 if (!\in_array(\ip(), ['127.0.0.1', '::1'])) {
     // Is logged out…
@@ -25,7 +19,7 @@ if (!\in_array(\ip(), ['127.0.0.1', '::1'])) {
             ) {
                 return $content;
             }
-            \extract($GLOBALS, \EXTR_SKIP);
+            \extract(\lot(), \EXTR_SKIP);
             $folder = \rtrim(\LOT . \D . 'page' . \D . \strtr(\trim($path ?? $state->route ?? 'index', '/'), ['/' => \D]), \D);
             if ($file = \exist([
                 $folder . '.archive',
@@ -46,9 +40,9 @@ if (!\in_array(\ip(), ['127.0.0.1', '::1'])) {
                                 \chmod($view, 0600);
                             }
                         } else {
-                            // If `$v` ever becomes `0` then something must have gone wrong. It is better not to do anything.
-                            // Better to lose one page view than to lose it all by accidentally writing the page view data
-                            // back to `1`.
+                            // If `$v` ever becomes `0` then something must have gone wrong. It is better not to do
+                            // anything. Better to lose one page view than to lose it all by accidentally writing the
+                            // page view data back to `1`.
                         }
                     }
                 }

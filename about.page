@@ -5,7 +5,7 @@ icon: 'M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17
 color: '#c43a27'
 author: Taufik Nurrohman
 type: Markdown
-version: 3.0.0
+version: 3.1.0
 ...
 
 This extension adds a `view` property to the current page with dynamic value. Each page visit will increment the `view`
@@ -16,5 +16,5 @@ property value by one.
 To show the current page views, add this to the `page.php` file in your active layout:
 
 ~~~ .php
-<?= $page->view; ?>
+<?= i('%d View' . (1 === ($view = $page->view) ? "" : 's'), [$view]); ?>
 ~~~
