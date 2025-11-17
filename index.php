@@ -3,7 +3,7 @@
 // Is online…
 if (!\in_array(\ip(), ['127.0.0.1', '::1'])) {
     // Is logged out…
-    if (!isset($state->x->user) || !\Is::user()) {
+    if (!(isset($state->x->user, $user) && $user->exist)) {
         function route__page($content, $path) {
             if (null !== $content) {
                 return $content;
